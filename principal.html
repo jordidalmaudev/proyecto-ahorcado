@@ -7,21 +7,17 @@
     <title>Principal</title>
   </head>
   <body>
+    <div class="titulo-subtitulo">
     <h1 class="title">Empieza el juego!</h1>
     <h4 class="subtitle">
       Coloca una letra y dale a enviar,
       <strong>tienes que acertar la palabra</strong>!
     </h4>
+  </div>
 
     <div class="game-container">
       <div id="contador"></div>
-      <div class="word-container">
-        <div class="letter-space"></div>
-        <div class="letter-space"></div>
-        <div class="letter-space"></div>
-        <div class="letter-space"></div>
-        <div class="letter-space"></div>
-      </div>
+      <div class="word-container" id="word-container"></div>
       <div class="input-container">
         <input
           type="text"
@@ -31,10 +27,21 @@
         />
         <button class="submit-button">Enviar</button>
       </div>
+      <div id="intentos-restantes">Intentos restantes: 10</div>
     </div>
+<!-- GAME OVER + VOLVER-->
+    <div id="game-over-container" class="game-over-container" style="display: none;">
+      <h2>GAME OVER</h2>
+      <a href="index.html" id="reiniciar-link" class="reiniciar-link">Volver al inicio</a>    </div>
+
     <script>
       let tiempoInicial = 0;
       const contadorElemento = document.getElementById("contador");
+      let intentos = 10;
+      const intentosElemento = document.getElementById("intentos-restantes");
+      const botonEnviar = document.querySelector(".submit-button");
+      const gameOverContainer = document.getElementById("game-over-container");
+      const tituloContainer = document.querySelector(".titulo-subtitulo");
 
       function actualizarContador() {
         tiempoInicial++;
@@ -45,6 +52,28 @@
       window.onload = function () {
         setInterval(actualizarContador, 1000);
       };
+
+      //INFORMACION VISUAL PARA EL JUGADOR (luego lo aprovechamos para las img)
+      function reducirIntentos() {
+        if (intentos > 0) {
+          intentos--;
+          intentosElemento.textContent = `Intentos restantes: ${intentos}`;
+        }
+        if (intentos === 0) {
+          gameOver();
+        }
+      }
+      // GAME OVER VISIBLE + opicón de volver al inicio
+      //--pendiente de mejorar a nivel visual y 
+      // display:none asi el jugador no puede jugar más
+      //o podemos inventarnos un html de GAME OVER mas currao
+      function gameOver() {
+        document.querySelector(".game-container").style.display = "none";
+        tituloContainer.style.display = "none";
+        gameOverContainer.style.display = "block";
+      }
+
+      botonEnviar.addEventListener("click", reducirIntentos);
     </script>
   </body>
 </html>

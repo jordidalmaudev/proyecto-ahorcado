@@ -14,7 +14,7 @@ const paraules = [
 ];
 
 // Elegir palabra aleatoria
-const paraulaAleatoria = paraules[Math.floor(Math.random() * paraules.length)];
+const palabraAleatoria = paraules[Math.floor(Math.random() * paraules.length)];
 
 // Obtener el contenedor de letras
 const wordContainer = document.getElementById("word-container");
@@ -22,9 +22,10 @@ const wordContainer = document.getElementById("word-container");
 // Crear los divs de letter-space según el número de letras de la palabra
 function generarEspaciosPalabra() {
   wordContainer.innerHTML = ''; // Limpiar el contenedor
-  for (let i = 0; i < paraulaAleatoria.length; i++) {
+  for (let i = 0; i < palabraAleatoria.length; i++) {
     const letterSpace = document.createElement('div');
     letterSpace.classList.add('letter-space');
+    letterSpace.id = 'letraAñadida';
     wordContainer.appendChild(letterSpace);
   }
 }
@@ -60,5 +61,16 @@ function gameOver() {
   tituloContainer.style.display = "none";
   gameOverContainer.style.display = "block";
 }
+function añadirLetra() {
+  reducirIntentos();
+  let inputLetra = document.getElementById("letra").value;
 
-botonEnviar.addEventListener("click", reducirIntentos);
+  console.log("------------------");
+  
+  
+  let letterSpace = document.getElementById("letraAñadida");
+  letterSpace.innerHTML = inputLetra;
+
+}
+
+botonEnviar.addEventListener("click", añadirLetra);

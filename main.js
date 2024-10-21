@@ -9,8 +9,7 @@ const tituloContainer = document.querySelector(".titulo-subtitulo");
 
 // Array de palabras
 const paraules = [
-  "casa", "jordi", "amistat", "festa", "flor", "xavi", "javi", 
-  "tu", "javier", "si", "no", "foc", "llum", "destrucció", "cel"
+  "sal"
 ];
 
 // Elegir palabra aleatoria
@@ -61,16 +60,13 @@ function gameOver() {
   tituloContainer.style.display = "none";
   gameOverContainer.style.display = "block";
 }
+let inputLetra = document.getElementById("letra").value;
 function añadirLetra() {
   reducirIntentos();
-  let inputLetra = document.getElementById("letra").value;
-
-  console.log("------------------");
-  
-  
   let letterSpace = document.getElementById("letraAñadida");
   letterSpace.innerHTML = inputLetra;
-
+  comprovacionLetra(inputLetra);
+  
 }
 
 botonEnviar.addEventListener("click", añadirLetra);

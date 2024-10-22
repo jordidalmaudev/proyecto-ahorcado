@@ -1,5 +1,7 @@
 
 let tiempoInicial = 0;
+let intervalo; // Variable para guardar el setInterval
+let tiempoFinal;
 const contadorElemento = document.getElementById("contador");
 let intentos = 10; //podemos incluso poner modo facil(15) normal(10) dificil(5)
 const intentosElemento = document.getElementById("intentos-restantes");
@@ -9,7 +11,7 @@ const tituloContainer = document.querySelector(".titulo-subtitulo");
 
 // Array de palabras
 const paraules = [
-  "sal"
+  "sal", "casa", "programacion"
 ];
 
 // Elegir palabra aleatoria
@@ -38,7 +40,7 @@ function actualizarContador() {
 // Contador cuando se carga la ventana + generador de palabras
 window.onload = function () {
   generarEspaciosPalabra();
-  setInterval(actualizarContador, 1000);
+  intervalo = setInterval(actualizarContador, 1000);
 };
 
 //INFORMACION VISUAL PARA EL JUGADOR (luego lo aprovechamos para las img)
@@ -49,6 +51,12 @@ function reducirIntentos() {
   }
   if (intentos === 0) {
     gameOver();
+    // console.log("La palabra era: " + palabraAleatoria + ".");
+
+    // // Detenemos el crono y guardamos el tiempo
+    // clearInterval(intervalo);
+    // tiempoFinal = tiempoInicial; // Guardamos el tiempo transcurrido
+    // console.log(`El tiempo total fue de: ${tiempoFinal} segundos.`);
   }
 }
 // GAME OVER VISIBLE + opicón de volver al inicio
@@ -59,13 +67,14 @@ function gameOver() {
   document.querySelector(".game-container").style.display = "none";
   tituloContainer.style.display = "none";
   gameOverContainer.style.display = "block";
+  
 }
-let inputLetra = document.getElementById("letra").value;
 function añadirLetra() {
   reducirIntentos();
+  let inputLetra = document.getElementById("letra").value;
   let letterSpace = document.getElementById("letraAñadida");
   letterSpace.innerHTML = inputLetra;
-  comprovacionLetra(inputLetra);
+
   
 }
 

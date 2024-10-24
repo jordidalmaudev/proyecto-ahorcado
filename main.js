@@ -1,7 +1,6 @@
 // Array de palabras
 const paraules = [
-  "casa", "jordi", "amistat", "festa", "flor", "xavi", "javi", 
-  "tu", "javier", "si", "no", "foc", "llum", "destrucció", "cel"
+  "sal", "casa", "programacion"
 ];
 
 // Elegir palabra aleatoria
@@ -74,21 +73,10 @@ botonEnviar.addEventListener("click", () => {
   
 });
 
-
-
-
-
-
-
-
-
-
 function actualizarContador() {
   tiempoInicial++;
   contadorElemento.textContent = `Tiempo: ${tiempoInicial} segundos`;
 }
-
-
 
 //INFORMACION VISUAL PARA EL JUGADOR (luego lo aprovechamos para las img)
 function reducirIntentos() {
@@ -98,6 +86,12 @@ function reducirIntentos() {
   }
   if (intentos === 0) {
     gameOver();
+    // console.log("La palabra era: " + palabraAleatoria + ".");
+
+    // // Detenemos el crono y guardamos el tiempo
+    // clearInterval(intervalo);
+    // tiempoFinal = tiempoInicial; // Guardamos el tiempo transcurrido
+    // console.log(`El tiempo total fue de: ${tiempoFinal} segundos.`);
   }
 }
 

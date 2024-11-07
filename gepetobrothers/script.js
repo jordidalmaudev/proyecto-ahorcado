@@ -4,7 +4,7 @@ let letrasAdivinadas = [];
 let intentos = 10;
 
 const palabraDiv = document.getElementById("palabra");
-const letterInput = document.getElementById("letraInput");
+const letraInput = document.getElementById("letraInput");
 const adivinaBoton = document.getElementById("adivinarBoton");
 const mensajeEstado = document.getElementById("mensajeEstado");
 const mensajeIntentos = document.getElementById("mensajeIntentos");
@@ -37,17 +37,17 @@ function estadoAhorcado() {
 }
 
 adivinaBoton.addEventListener("click", () => {
-    const letter = letterInput.value.toLowerCase();
-    letterInput.value = '';
+    const letra = letraInput.value.toLowerCase();
+    letraInput.value = '';
 
-    if (letrasAdivinadas.includes(letter) || letter === '') {
+    if (letrasAdivinadas.includes(letra) || letra === '') {
         mensajeEstado.innerText = "Ya adivinaste esa letra o no ingresaste nada.";
         return;
     }
 
-    letrasAdivinadas.push(letter);
+    letrasAdivinadas.push(letra);
 
-    if (!palabraRandom.includes(letter)) {
+    if (!palabraRandom.includes(letra)) {
         intentos--;
         mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
     }

@@ -1,49 +1,60 @@
-const words = ["javascript", "html", "css", "programacion", "desarrollo"];
-let selectedWord = words[Math.floor(Math.random() * words.length)];
-let guessedLetters = [];
-let attempts = 6;
+const palabras = ["javascript", "html", "css"];
+let palabraRandom = palabras[Math.floor(Math.random() * palabras.length)];
+let letrasAdivinadas = [];
+let intentos = 10;
 
-const wordDiv = document.getElementById("word");
-const letterInput = document.getElementById("letter-input");
-const guessButton = document.getElementById("guess-button");
-const messageDiv = document.getElementById("message");
-const hangmanDiv = document.getElementById("hangman");
+const palabraDiv = document.getElementById("palabra");
+const letterInput = document.getElementById("letraInput");
+const adivinaBoton = document.getElementById("adivinarBoton");
+const mensajeEstado = document.getElementById("mensajeEstado");
+const mensajeIntentos = document.getElementById("mensajeIntentos");
 
-function displayWord() {
-    wordDiv.innerHTML = selectedWord.split('').map(letter => 
-        guessedLetters.includes(letter) ? letter : '_'
-    ).join(' ');
+function mostrarPalabra() {
+    let resultado = '';
+    for (let letter of palabraRandom) {
+        resultado += letrasAdivinadas.includes(letter) ? letter : '_';
+        resultado += ' ';
+    }
+    palabraDiv.innerHTML = resultado.trim(); //elimina espacios en blanco al final
 }
 
-function checkGameStatus() {
-    if (selectedWord.split('').every(letter => guessedLetters.includes(letter))) {
-        messageDiv.innerText = "¡Ganaste!";
-        guessButton.disabled = true;
-    } else if (attempts <= 0) {
-        messageDiv.innerText = `Perdiste. La palabra era: ${selectedWord}`;
-        guessButton.disabled = true;
+function estadoAhorcado() {
+    let todasLetrasAdivinadas = true;
+    for (let palabra of palabraRandom) {
+        if (!letrasAdivinadas.includes(palabra)) {
+            todasLetrasAdivinadas = false;
+            break;
+        }
+    }
+
+    if (todasLetrasAdivinadas) {
+        mensajeEstado.innerText = "¡Ganaste!";
+        adivinaBoton.disabled = true;
+    } else if (intentos <= 0) {
+        mensajeEstado.innerText = `Perdiste. La palabra era: ${palabraRandom}`;
+        adivinaBoton.disabled = true;
     }
 }
 
-guessButton.addEventListener("click", () => {
+adivinaBoton.addEventListener("click", () => {
     const letter = letterInput.value.toLowerCase();
     letterInput.value = '';
 
-    if (guessedLetters.includes(letter) || letter === '') {
-        messageDiv.innerText = "Ya adivinaste esa letra o no ingresaste nada.";
+    if (letrasAdivinadas.includes(letter) || letter === '') {
+        mensajeEstado.innerText = "Ya adivinaste esa letra o no ingresaste nada.";
         return;
     }
 
-    guessedLetters.push(letter);
+    letrasAdivinadas.push(letter);
 
-    if (!selectedWord.includes(letter)) {
-        attempts--;
-        hangmanDiv.innerText = `Intentos restantes: ${attempts}`;
+    if (!palabraRandom.includes(letter)) {
+        intentos--;
+        mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
     }
 
-    displayWord();
-    checkGameStatus();
+    mostrarPalabra();
+    estadoAhorcado();
 });
 
-displayWord();
-hangmanDiv.innerText = `Intentos restantes: ${attempts}`;
+mostrarPalabra();
+mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;

@@ -1,3 +1,9 @@
+let popupWindow;
+
+window.onload = function () {
+    popupWindow = window.open("popup.html", "_blank", "width=400,height=400,top=200,left=400");
+}
+
 const palabras = ["javascript", "html", "css"];
 let palabraRandom = palabras[Math.floor(Math.random() * palabras.length)];
 let letrasAdivinadas = [];
@@ -12,7 +18,6 @@ const letraInput = document.getElementById("letraInput");
 const adivinaBoton = document.getElementById("adivinarBoton");
 const mensajeEstado = document.getElementById("mensajeEstado");
 const mensajeIntentos = document.getElementById("mensajeIntentos");
-
 
 function iniciarTemporizador() {
     tiempoInicio = Date.now();
@@ -56,7 +61,11 @@ function estadoAhorcado() {
             tiempo: tiempoTranscurrido.toFixed(1),
             fecha: new Date().toLocaleString()
         }
-        
+
+        if (localStorage.getItem("estadisticasPartida") !== null) {
+            estadisticasPartidas = JSON.parse(localStorage.getItem("estadisticasPartida"));
+        }
+
         estadisticasPartidas.push(estadisticasPartidaGanada);
         localStorage.setItem("estadisticasPartida", JSON.stringify(estadisticasPartidas));
         adivinaBoton.disabled = true;
@@ -64,15 +73,28 @@ function estadoAhorcado() {
     } else if (intentos <= 0) {
         detenerTemporizador();
         mensajeEstado.innerText = `Perdiste. La palabra era: ${palabraRandom}. Tiempo: ${tiempoTranscurrido.toFixed(1)} segundos`;
+
         let estadisticasPartidaPerdida = {
             resultado: "Perdiste",
             tiempo: tiempoTranscurrido.toFixed(1),
             fecha: new Date().toLocaleString()
         }
+        if (localStorage.getItem("estadisticasPartida") !== null) {
+            estadisticasPartidas = JSON.parse(localStorage.getItem("estadisticasPartida"));
+        }
         estadisticasPartidas.push(estadisticasPartidaPerdida);
         localStorage.setItem("estadisticasPartida", JSON.stringify(estadisticasPartidas));
         adivinaBoton.disabled = true;
     }
+}
+
+function actualizarImagenIntentos() {
+    const imgElement = popupWindow.document.getElementById("imagenIntentos");
+    console.log(imgElement);
+    
+        if (imgElement) {
+            imgElement.src = `./img/${intentos}.jpg`;
+        }
 }
 
 adivinaBoton.addEventListener("click", () => {
@@ -89,6 +111,7 @@ adivinaBoton.addEventListener("click", () => {
     if (!palabraRandom.includes(letra)) {
         intentos--;
         mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
+        actualizarImagenIntentos();
     }
 
     mostrarPalabra();
@@ -98,3 +121,4 @@ adivinaBoton.addEventListener("click", () => {
 iniciarTemporizador();
 mostrarPalabra();
 mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
+actualizarImagenIntentos();

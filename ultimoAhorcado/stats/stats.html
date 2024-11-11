@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STATS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>STATS</h1>
+    <div class="stats">
+        <table>
+            <thead>
+                <tr>
+                    <th>Resultado</th>
+                    <th>Tiempo</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!---------------- Aquí se insertarán  las filas con los datos de cada partida ------------------>
+                
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // get localStorage from index script
+        const stats = JSON.parse(localStorage.getItem('estadisticasPartida'));
+        stats.forEach(stat => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${stat.resultado}</td>
+                            <td>${stat.tiempo}</td>
+                            <td>${stat.fecha}</td>
+                        `;
+                        document.querySelector('tbody').appendChild(row);
+                    });
+    </script>
+</body>
+</html>

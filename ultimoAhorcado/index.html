@@ -14,11 +14,16 @@
           <a href="principal.html">
             <button id="jugar">Jugar</button>
           </a>
-          <a href="stats.html">
+          <a href="./stats/stats.html">
             <button id="stats">Stats</button>
           </a>
         </div>
       </div>
     </main>
+    <script>
+      document.getElementById('jugar').addEventListener("click", (e) => {
+        window.open("popup.html", "_blank", "width=400,height=400");
+      });
+    </script>
   </body>
 </html>

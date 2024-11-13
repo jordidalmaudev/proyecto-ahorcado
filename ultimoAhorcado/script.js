@@ -2,6 +2,8 @@ let popupWindow;
 
 window.onload = function () {
     popupWindow = window.open("popup.html", "_blank", "width=400,height=400,top=200,left=400");
+    console.log(popupWindow);
+    
 }
 
 const palabras = ["javascript", "html", "css"];
@@ -88,14 +90,7 @@ function estadoAhorcado() {
     }
 }
 
-function actualizarImagenIntentos() {
-    const imgElement = popupWindow.document.getElementById("imagenIntentos");
-    console.log(imgElement);
-    
-        if (imgElement) {
-            imgElement.src = `./img/${intentos}.jpg`;
-        }
-}
+
 
 adivinaBoton.addEventListener("click", () => {
     const letra = letraInput.value.toLowerCase();
@@ -111,14 +106,22 @@ adivinaBoton.addEventListener("click", () => {
     if (!palabraRandom.includes(letra)) {
         intentos--;
         mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
-        actualizarImagenIntentos();
-    }
+        popupWindow.postMessage(intentos, "http://127.0.0.1:5501");
 
+
+        // const imgElement = popupWindow.document.getElementById("imagenIntentos");
+        // console.log(imgElement);
+
+        //     if (imgElement) {
+        //         imgElement.src = `./img/${intentos}.jpg`;
+        //     }
+    }
     mostrarPalabra();
     estadoAhorcado();
-});
+}
+
+);
 
 iniciarTemporizador();
 mostrarPalabra();
 mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
-actualizarImagenIntentos();

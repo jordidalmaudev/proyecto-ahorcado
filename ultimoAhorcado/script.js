@@ -64,6 +64,17 @@ function estadoAhorcado() {
     if (todasLetrasAdivinadas) {
         detenerTemporizador();
         mensajeEstado.innerText = `¡Ganaste! Tiempo: ${tiempoTranscurrido.toFixed(1)} segundos`;
+        
+        // Crear el botó de tornar a l'índex
+        const botonVolver = document.createElement('button');
+        botonVolver.innerText = 'Volver al inicio';
+        botonVolver.onclick = function() {
+            popupWindow.close();
+            window.location.href = 'index.html';
+        };
+
+        // Afegir el botó al missatge d'estat o a un altre element del DOM
+        mensajeEstado.appendChild(botonVolver);
 
         let estadisticasPartidaGanada = {
             resultado: "Ganaste",

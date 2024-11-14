@@ -4,6 +4,13 @@ window.onload = function () {
     popupWindow = window.open("popup.html", "_blank", "width=400,height=400,top=200,left=400");
     console.log(popupWindow);
     
+    //  Si l’usuari tanca el popup amb la figura tornem directament al menú principal
+    const checkPopupClosed = setInterval(() => {
+        if (popupWindow.closed) {
+            clearInterval(checkPopupClosed); 
+            window.location.href = 'index.html';  
+        }
+    }, 200);
 }
 
 const palabras = ["javascript", "html", "css"];

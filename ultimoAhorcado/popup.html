@@ -22,19 +22,6 @@
     <div class="intentos">
       <img id="imagenIntentos" src="./img/11.jpg" alt="Intentos restantes" />
     </div>
-    <script>
-      window.onload = () => {
-        window.addEventListener("message", (event) => {
-          if (event.origin == "http://127.0.0.1:5501") {
-            console.log("comprobando mensaje");
-            
-            let intentos = event.data;
-            let imagenIntentos = document.getElementById("imagenIntentos");
-            imagenIntentos.src = `./img/${intentos}.jpg`;
-          }
-
-        });
-      }
-    </script>
+    <script src="./js/popup.js"></script>
   </body>
 </html>

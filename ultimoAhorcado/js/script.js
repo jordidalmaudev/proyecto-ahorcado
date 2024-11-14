@@ -74,6 +74,7 @@ function estadoAhorcado() {
 
         // Crear el botó de tornar a l'índex
         const botonVolver = document.createElement('button');
+        botonVolver.classList = "volver";
         botonVolver.innerText = 'Volver al inicio';
         botonVolver.onclick = function() {
             popupWindow.close();
@@ -103,6 +104,7 @@ function estadoAhorcado() {
 
         // Crear el botó de tornar a l'índex
         const botonVolver = document.createElement('button');
+        botonVolver.classList = "volver";
         botonVolver.innerText = 'Volver al inicio';
         botonVolver.onclick = function() {
             popupWindow.close();

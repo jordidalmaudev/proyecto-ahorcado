@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+   font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+    background-color: #ccd3df;
+    color: #284268;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Título de la página */
+h1 {
+    color: #6d7486;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de la tabla */
+.stats {
+    margin: 0 auto;
+    width: 80%;
+    overflow-x: auto;
+    border-radius: 8px;
+    background-color: #284268;
+    padding: 15px;
+}
+
+/* Tabla de estadísticas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    color: #ffffff;
+}
+
+/* Encabezados de la tabla */
+th {
+    background-color: #6d7486;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 1.1em;
+    border-bottom: 2px solid #ccd3df;
+}
+
+/* Filas de la tabla */
+td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ccd3df;
+}
+
+/* Alternar color de filas para mejorar legibilidad */
+tbody tr:nth-child(even) {
+    background-color: #6d7486;
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+    .stats {
+        width: 100%;
+    }
+
+    table,
+    th,
+    td {
+        font-size: 0.9em;
+    }
+}

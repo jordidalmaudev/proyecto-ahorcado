@@ -17,7 +17,7 @@ const palabras = ["javascript", "html", "css"];
 let palabraRandom = palabras[Math.floor(Math.random() * palabras.length)];
 let letrasAdivinadas = [];
 let estadisticasPartidas = [];
-let intentos = 10;
+let intentos = 11;
 let tiempoInicio;
 let tiempoTranscurrido;
 let temporizadorIntervalo;
@@ -27,6 +27,8 @@ const letraInput = document.getElementById("letraInput");
 const adivinaBoton = document.getElementById("adivinarBoton");
 const mensajeEstado = document.getElementById("mensajeEstado");
 const mensajeIntentos = document.getElementById("mensajeIntentos");
+const mensajeTiempo = document.getElementById("mensajeTiempo");
+
 
 function iniciarTemporizador() {
     tiempoInicio = Date.now();
@@ -40,13 +42,18 @@ function detenerTemporizador() {
 
 function actualizarTiempo() {
     tiempoTranscurrido = (Date.now() - tiempoInicio) / 1000; // Tiempo en segundos
-    mensajeTiempo.innerText = `Tiempo: ${tiempoTranscurrido.toFixed(1)} segundos`;
+    // Calculamos minutos y segundos
+    const minutos = Math.floor(tiempoTranscurrido / 60);
+    const segundos = Math.floor(tiempoTranscurrido % 60);
+
+    // Mostramos el tiempo en formato "Minutos:Segundos"
+    mensajeTiempo.innerText = `Tiempo: ${minutos}m ${segundos}s`;
 }
 
 function mostrarPalabra() {
     let resultado = '';
-    for (let letter of palabraRandom) {
-        resultado += letrasAdivinadas.includes(letter) ? letter : '_';
+    for (let letra of palabraRandom) {
+        resultado += letrasAdivinadas.includes(letra) ? letra : '_';
         resultado += ' ';
     }
     palabraDiv.innerHTML = resultado.trim(); //elimina espacios en blanco al final
@@ -90,7 +97,7 @@ function estadoAhorcado() {
         localStorage.setItem("estadisticasPartida", JSON.stringify(estadisticasPartidas));
         adivinaBoton.disabled = true;
 
-    } else if (intentos <= 0) {
+    } else if (intentos <= 1) {
         detenerTemporizador();
         mensajeEstado.innerText = `Perdiste. La palabra era: ${palabraRandom}. Tiempo: ${tiempoTranscurrido.toFixed(1)} segundos`;
 
@@ -120,9 +127,18 @@ function estadoAhorcado() {
 }
 
 
+let totalcaracteres = "&,',+,-,0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,²,³,·,À,Á,Å,Æ,Ç,È,É,Í,Ñ,Ò,Ó,Ö,Ø,Ú,à,á,â,ã,ä,å,ç,è,é,ê,ë,ì,í,î,ï,ñ,ò,ó,ô,ö,ø,ù,ú,û,ü,ý,Ā,ā,ă,ć,Č,č,Ē,ē,ė,ę,ī,ı,ķ,Ł,ł,ń,ň,Ō,ō,ŏ,ő,œ,ř,Ś,ś,Ş,ş,Š,š,ţ,ū,ŭ,ů,ź,ż,Ž,ž,ǎ,ǒ,Ǧ,ǧ,ḍ,ḗ,Ḥ,ḥ,ḫ,ṇ,ṛ,ṣ,Ṭ,ṭ,₂";
+
+let arrayCaracteres = totalcaracteres.split(",");
 
 adivinaBoton.addEventListener("click", () => {
     const letra = letraInput.value.toLowerCase();
+
+    if (!arrayCaracteres.includes(letra)) {
+        mensajeEstado.innerText = "Letra no válida.";
+        return;
+    }
+
     letraInput.value = '';
 
     if (letrasAdivinadas.includes(letra) || letra === '') {
@@ -134,16 +150,8 @@ adivinaBoton.addEventListener("click", () => {
 
     if (!palabraRandom.includes(letra)) {
         intentos--;
-        mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
+        mensajeIntentos.innerText = `Intentos restantes: ${intentos - 1}`;
         popupWindow.postMessage(intentos, "http://127.0.0.1:5501");
-
-
-        // const imgElement = popupWindow.document.getElementById("imagenIntentos");
-        // console.log(imgElement);
-
-        //     if (imgElement) {
-        //         imgElement.src = `./img/${intentos}.jpg`;
-        //     }
     }
     mostrarPalabra();
     estadoAhorcado();
@@ -153,4 +161,4 @@ adivinaBoton.addEventListener("click", () => {
 
 iniciarTemporizador();
 mostrarPalabra();
-mensajeIntentos.innerText = `Intentos restantes: ${intentos}`;
+mensajeIntentos.innerText = `Intentos restantes: ${intentos - 1}`;

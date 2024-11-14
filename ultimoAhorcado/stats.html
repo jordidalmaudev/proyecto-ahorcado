@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/stats.css">
     <title>STATS</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>STATS</h1>
@@ -27,14 +27,21 @@
         // get localStorage from index script
         const stats = JSON.parse(localStorage.getItem('estadisticasPartida'));
         stats.forEach(stat => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
+            const row = document.createElement('tr');
+
+            // Convertir el tiempo en segundos a minutos y segundos
+            const tiempoEnSegundos = stat.tiempo;
+            const minutos = Math.floor(tiempoEnSegundos / 60);
+            const segundos = Math.floor(tiempoEnSegundos % 60);
+            const tiempoFormato = `${minutos}m ${segundos}s`;
+
+            row.innerHTML = `
                             <td>${stat.resultado}</td>
-                            <td>${stat.tiempo}</td>
-                            <td>${stat.fecha}</td>
-                        `;
-                        document.querySelector('tbody').appendChild(row);
-                    });
+                            <td>${tiempoFormato}</td>
+                            <td>${stat.fecha}</td>`
+                        ;
+            document.querySelector('tbody').appendChild(row);
+        });
     </script>
 </body>
 </html>

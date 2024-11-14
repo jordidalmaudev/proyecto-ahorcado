@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+   font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+    background-color: #ccd3df;
+    color: #284268;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Título del juego */
+h1 {
+    color: #6d7486;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de mensajes */
+#mensajeTiempo,
+#mensajeEstado,
+#mensajeIntentos {
+    font-size: 1.2em;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #6d7486;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+/* Contenedor de la palabra */
+#palabra {
+    font-size: 1.8em;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #284268;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+/* Input de letra */
+#letraInput {
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #6d7486;
+    border-radius: 5px;
+    outline: none;
+    color: #284268;
+    margin-bottom: 15px;
+}
+
+/* Botón de adivinar */
+#adivinarBoton {
+    background-color: #6d7486;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#adivinarBoton:hover {
+    background-color: #284268;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    #letraInput,
+    #adivinarBoton {
+        width: 100%;
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,11 @@
+#imagenIntentos {
+  width: 160px;
+  height: auto;
+}
+
+.intentos {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
